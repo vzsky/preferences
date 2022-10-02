@@ -1,0 +1,18 @@
+#pragma once
+
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+
+#define MIDI_BASIC
+#define MIDI_ADVANCED
+
+#define USB_MAX_POWER_CONSUMPTION 100
+
+#undef VENDOR_ID
+#define VENDOR_ID 0x05AC 
+// Apple's vendor id
+#undef PRODUCT_ID
+#define PRODUCT_ID 0x0267
+// magic keyboard id

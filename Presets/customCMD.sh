@@ -4,6 +4,12 @@ function cplus(){
 	./$fn
 }
 
+function rust (){
+  fn="`echo "$1"|cut -d. -f1`"
+  rustc $fn.rs -o $fn
+  ./$fn
+}
+
 function haskell(){
   fn="`echo "$1"|cut -d. -f1`"
   ghc -o $fn $fn.hs
@@ -11,5 +17,5 @@ function haskell(){
 }
 
 function word(){
-	echo Word count: $(wc -w).
+	echo Word count: $(wc -w $1).
 }
