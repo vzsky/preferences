@@ -1,6 +1,3 @@
-// TO TEST -q  globe mod
-// Add rgblight mode on changing between mac and ipad 
-
 #include QMK_KEYBOARD_H
 
 enum planck_layers {
