@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,          KC_LCTL, KC_LGUI, LOWER  , KC_SPC ,                         KC_BSPC, RAISE  , KC_MPLY, KC_MNXT,          KC_ENT
     ),
     [_NAV] = LAYOUT(
-        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,                         XXXXXXX, SELWORD, XXXXXXX, COPY   , PATSE  , XXXXXXX, 
-        XXXXXXX, KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX,                         KC_HOME, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_END ,
-        _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX,                         XXXXXXX, LWORD  , KC_PGDN, KC_PGUP, RWORD  , XXXXXXX,
+        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,                         COPY,    SELWORD, XXXXXXX, XXXXXXX, PATSE  , XXXXXXX, 
+        XXXXXXX, KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX,                         KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
+        _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX,                         KC_PGDN, LWORD  , RWORD  , KC_PGUP, XXXXXXX, XXXXXXX,
         _______,          _______, _______, _______, _______,                         _______, _______, _______, _______,          _______
                                                      
     ),
