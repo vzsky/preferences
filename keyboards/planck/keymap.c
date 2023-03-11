@@ -37,6 +37,13 @@ enum planck_keycodes {
 #define NAV    MO(_NAV)
 #define MDCTRL MO(_MIDICTRL)
 
+#define LWORD A(KC_LEFT)
+#define RWORD A(KC_RIGHT)
+
+#define COPY    G(KC_C)
+#define PATSE   G(KC_V)
+#define UNDO    G(KC_Z)
+
 #define MIDI    DF(_MIDI)
 #define QWERTY  DF(_QWERTY)
 
@@ -235,17 +242,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |      |      | Left | Down |  Up  | Rght |      |
+ * |      |  F5  |  F6  |  F7  |  F8  |      | Left | Down |  Up  | Rght |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F9  |  F10 |  F11 |  F12 |      |      | Home | PgDn | PgUp | End  |      |
+ * |      |  F9  |  F10 |  F11 |  F12 |      | PdDn | Lwrd | Rwrd | PgUp |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NAV] = LAYOUT_planck_grid(
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, _______, _______, _______, _______, _______,
-  _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
-  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, COPY,    UNDO,    _______, _______, PATSE,   _______,
+  _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+  _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_PGDN, LWORD,   RWORD,   KC_PGUP, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 };
