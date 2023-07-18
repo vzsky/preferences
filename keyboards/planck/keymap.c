@@ -2,6 +2,7 @@
 
 enum planck_layers {
   _QWERTY,
+  _COLEMAK,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -19,6 +20,9 @@ enum planck_layers {
 enum planck_keycodes {
   MAC = SAFE_RANGE,
   IPAD,
+
+  QWERTY, 
+  COLEMAK,
 
   // globe key modifiers for ipad
   IP_LEFT,
@@ -74,6 +78,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_BSPC, RAISE,  IPAD, _______, _______, KC_ENT
 ),
 
+[_COLEMAK] = LAYOUT_planck_grid(
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,  KC_B,   KC_J,    KC_L,   KC_I,    KC_Y,    KC_SCLN,    KC_CAPS,
+  KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,  KC_G,   KC_M,    KC_N,   KC_E,    KC_I,    KC_O, KC_QUOT,
+  NAV,     KC_Z,    KC_X,    KC_C,    KC_D,  KC_V,   KC_B,    KC_H,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_BSPC, RAISE,  IPAD, _______, _______, KC_ENT
+),
+
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * | Next |   _  |   &  |   *  |   `  |   ~  |      |   [  |   ]  |      |      |      |
@@ -115,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      | RGB  |      
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |QWERTY|COLEMK|      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      | MIDI |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -124,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_grid(
   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, MIDI,    _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -284,8 +295,20 @@ void globe_mod(uint16_t keycode) {
   unregister_code(KC_APFN);
 }
 
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
+      }
+      return false;
     case MAC:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);

@@ -3,6 +3,7 @@
 
 enum layers {
   _QWERTY,
+  _COLEMAK,
   _NAV,
   _LOWER,
   _RAISE,
@@ -11,14 +12,10 @@ enum layers {
 
 enum custom_keycodes {
   SELWORD = SAFE_RANGE,
-  FNAME,
-  SNAME,
-  SAFARI,
-  CMDLINE,
-  VSCODE,
+  QWERTY, 
+  COLEMAK
 };
 
-#define SPLGHT SS_LGUI(" ")SS_DELAY(20)
 
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
@@ -35,55 +32,59 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                         KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_CAPS,
-        KC_ESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                         KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
-        NAV    , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,                         KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
-        KC_LSFT,          KC_LCTL, KC_LGUI, LOWER  , KC_SPC ,                         KC_BSPC, RAISE  , KC_MPLY, KC_MNXT,          KC_ENT
+        KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,           KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_CAPS,
+        KC_ESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,           KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
+        NAV    , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,           KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
+        KC_LSFT,          KC_LCTL, KC_LGUI, LOWER  , KC_SPC ,           KC_BSPC, RAISE  , KC_MPLY, KC_MNXT,          KC_ENT
+    ),
+    [_COLEMAK] = LAYOUT(
+        KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,           KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN, KC_CAPS,
+        KC_ESC , KC_A   , KC_R   , KC_S   , KC_T   , KC_G   ,           KC_M   , KC_N   , KC_E   , KC_I   , KC_O   , KC_QUOT,
+        NAV    , KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,           KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
+        KC_LSFT,          KC_LCTL, KC_LGUI, LOWER  , KC_SPC ,           KC_BSPC, RAISE  , KC_MPLY, KC_MNXT,          KC_ENT
     ),
     [_NAV] = LAYOUT(
-        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,                         COPY,    SELWORD, XXXXXXX, XXXXXXX, PATSE  , XXXXXXX, 
-        XXXXXXX, KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX,                         KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
-        _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX,                         KC_PGDN, LWORD  , RWORD  , KC_PGUP, XXXXXXX, XXXXXXX,
-        _______,          _______, _______, _______, _______,                         _______, _______, _______, _______,          _______
-                                                     
+        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,           COPY,    SELWORD, XXXXXXX, XXXXXXX, PATSE  , XXXXXXX, 
+        XXXXXXX, KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX,           KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
+        _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX,           KC_PGDN, LWORD  , RWORD  , KC_PGUP, XXXXXXX, XXXXXXX,
+        _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
+                                       
     ),
     [_LOWER] = LAYOUT(
-        XXXXXXX, KC_UNDS, KC_AMPR, KC_ASTR, KC_GRV,  KC_TILD,                         XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, KC_DLR,  KC_PERC, KC_CIRC, KC_BSLS,                         XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
-        _______, XXXXXXX, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE,                         XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______,          _______, _______, _______, _______,                         _______, _______, _______, _______,          _______
+        XXXXXXX, KC_UNDS, KC_AMPR, KC_ASTR, KC_GRV,  KC_TILD,           XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, KC_DLR,  KC_PERC, KC_CIRC, KC_BSLS,           XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
+        _______, XXXXXXX, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE,           XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
     ),
     [_RAISE] = LAYOUT(
-        XXXXXXX, KC_UNDS, KC_7   , KC_8   , KC_9   , XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       
-        XXXXXXX, XXXXXXX, KC_4   , KC_5   , KC_6   , XXXXXXX,                         XXXXXXX, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH, XXXXXXX,
-        _______, KC_0   , KC_1   , KC_2   , KC_3   , XXXXXXX,                         XXXXXXX, KC_CIRC, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX,
-        CLEFT  ,          _______, _______, _______, _______,                         _______, _______, _______, _______,          CRIGHT
+        XXXXXXX, KC_UNDS, KC_7   , KC_8   , KC_9   , XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       
+        XXXXXXX, XXXXXXX, KC_4   , KC_5   , KC_6   , XXXXXXX,           XXXXXXX, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH, XXXXXXX,
+        _______, KC_0   , KC_1   , KC_2   , KC_3   , XXXXXXX,           XXXXXXX, KC_CIRC, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX,
+        CLEFT  ,          _______, _______, _______, _______,           _______, _______, _______, _______,          CRIGHT
     ),
     [_ADJUST] = LAYOUT(
-        XXXXXXX, RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, SAFARI , CMDLINE, VSCODE , XXXXXXX,                         XXXXXXX, FNAME  , SNAME  , XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______,          _______, _______, _______, _______,                         _______, _______, _______, _______,          _______
+        XXXXXXX, RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, QWERTY , COLEMAK, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
     )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
   switch (keycode) {
-    case FNAME: 
-      if (record->event.pressed) { SEND_STRING("Touch"); }
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
       break;
-    case SNAME:
-      if (record->event.pressed) { SEND_STRING("Sungkawichai"); }
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
+      }
+      return false;
       break;
-    case SAFARI: 
-      if (record->event.pressed) { SEND_STRING(SPLGHT"safari\n"); }
-      break;
-    case CMDLINE: 
-      if (record->event.pressed) { SEND_STRING(SPLGHT"hyper\n"); }
-      break;
-    case VSCODE: 
-      if (record->event.pressed) { SEND_STRING(SPLGHT"visual studio code\n"); }
   }
   return true;
 }
