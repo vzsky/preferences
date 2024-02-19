@@ -1,10 +1,14 @@
-vim.g.vimtex_view_method = "zathura"
-
 return {
   'lervag/vimtex',
-  config = function ()
+  init = function()
+    vim.g.vimtex_view_method = "zathura"
+  end,
+  config = function()
     vim.g.vimtex_compiler_latexmk = {
-      build_dir = "out"
+      out_dir = "out"
     }
+    vim.g.vimtex_view_method = 'zathura'
+
+    vim.cmd("set conceallevel=2")
   end
 }

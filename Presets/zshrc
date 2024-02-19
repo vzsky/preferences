@@ -5,6 +5,9 @@ alias g++ g++-10
 alias rm='rm -i'
 source ~/.customCMD.sh
 
+# Ocaml
+eval $(opam env)
+
 # JLang
 export PATH="/Applications/j903/bin:$PATH"
 

@@ -19,9 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// #include "config_common.h"
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
+#define VENDOR_ID    0x444D
+#define MANUFACTURER my99n
+#define PRODUCT_ID 0x0000
+#define DEVICE_VER 0x0001
+#define PRODUCT caelum
 
 /* mouse config */
 #define MOUSEKEY_INTERVAL    20
@@ -53,6 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // last 2 rows are not used, but i just put it here cause removing causes error.
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4, D1 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
-// #define UNUSED_PINS
+#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW

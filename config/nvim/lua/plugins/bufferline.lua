@@ -1,10 +1,10 @@
 return {
   "akinsho/bufferline.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  config = function ()
+  config = function()
     vim.opt.termguicolors = true
     local bufferline = require('bufferline')
-    bufferline.setup{
+    bufferline.setup {
       highlights = {
         fill = {
           fg = "NONE",
@@ -16,7 +16,7 @@ return {
         diagnostics = "nvim_lsp"
       }
     }
-    vim.keymap.set("n", "<leader>bn",  ":BufferLineCyclePrev<CR>")
-    vim.keymap.set("n", "<leader>bm",  ":BufferLineCycleNext<CR>")
+    vim.keymap.set("n", "<leader>fe", ":BufferLineCyclePrev<CR>")
+    vim.keymap.set("n", "<leader>fn", ":BufferLineCycleNext<CR>")
   end
 }

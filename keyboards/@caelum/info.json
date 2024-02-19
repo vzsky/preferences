@@ -1,13 +1,7 @@
 {
   "keyboard_name": "caelum",
   "url": "",
-  "manufacturer": "my99n",
-  "maintainer": "my99n",
-  "usb": {
-    "vid": "0x444D",
-    "pid": "0x0000",
-    "device_version": "1.0.0"
-  },
+  "maintainer": "qmk",
   "layouts": {
       "LAYOUT": {
           "layout": [

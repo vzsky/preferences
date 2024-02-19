@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-// #include "features/select_word.h"
+#include "features/select_word.h"
 
 enum layers {
   _QWERTY,
@@ -11,7 +11,8 @@ enum layers {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE, 
+  SELWORD = SAFE_RANGE,
+  QWERTY, 
   COLEMAK
 };
 
@@ -43,16 +44,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,          KC_LCTL, KC_LGUI, LOWER  , KC_SPC ,           KC_BSPC, RAISE  , KC_MPLY, KC_MNXT,          KC_ENT
     ),
     [_NAV] = LAYOUT(
-        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,           COPY,    XXXXXXX, XXXXXXX, XXXXXXX, PATSE  , XXXXXXX, 
+        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,           COPY,    SELWORD, XXXXXXX, XXXXXXX, PATSE  , XXXXXXX, 
         XXXXXXX, KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX,           KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
-        _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX,           LWORD,   KC_PGDN, KC_PGUP, RWORD ,  XXXXXXX, XXXXXXX,
+        _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX,           KC_PGDN, LWORD  , RWORD  , KC_PGUP, XXXXXXX, XXXXXXX,
         _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
                                        
     ),
     [_LOWER] = LAYOUT(
         XXXXXXX, KC_UNDS, KC_AMPR, KC_ASTR, KC_GRV,  KC_TILD,           XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, KC_DLR,  KC_PERC, KC_CIRC, KC_BSLS,           XXXXXXX, KC_LPRN, KC_RPRN, KC_QUOT, KC_DQUO, XXXXXXX,
-        _______, XXXXXXX, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE,           XXXXXXX, KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX,
+        XXXXXXX, XXXXXXX, KC_DLR,  KC_PERC, KC_CIRC, KC_BSLS,           XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
+        _______, XXXXXXX, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE,           XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX,
         _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
     ),
     [_RAISE] = LAYOUT(
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CLEFT  ,          _______, _______, _______, _______,           _______, _______, _______, _______,          CRIGHT
     ),
     [_ADJUST] = LAYOUT(
-        XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, QWERTY , COLEMAK, XXXXXXX, XXXXXXX, XXXXXXX,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
@@ -70,6 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_select_word(keycode, record, SELWORD)) { return false; }
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {

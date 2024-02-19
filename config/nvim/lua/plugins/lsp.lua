@@ -1,9 +1,7 @@
 local servers = {
   lua_ls = {},
   clangd = {},
-  -- Add bits.stdc++.h to 
-  -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/
-  -- for clangd
+  -- Create ~/.clangd solves library seeking issues.
   eslint = {},
   hls = {},
   tsserver = {},
@@ -18,12 +16,13 @@ return {
     'hrsh7th/cmp-nvim-lsp',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim', tag = "legacy", opts = {} },
     'folke/neodev.nvim',
   },
-  config = function ()
+  config = function()
     require("neodev").setup({})
     require("mason").setup()
+
     local mason_lspconfig = require("mason-lspconfig")
 
     mason_lspconfig.setup({
@@ -46,7 +45,6 @@ return {
     vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
     vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition)
     vim.keymap.set('n', '<leader>t', vim.lsp.buf.type_definition)
-
-
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
   end
 }
