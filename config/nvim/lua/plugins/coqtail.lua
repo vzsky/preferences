@@ -11,10 +11,12 @@ return {
     ]])
   end,
   config = function()
-    local prefix = " c"
+    local prefix = "\\c"
     vim.g.coqtail_map_prefix = prefix
 
-    vim.keymap.set("n", prefix .. "n", ":CoqNext<CR>")
-    vim.keymap.set("n", prefix .. "e", ":CoqUndo<CR>")
+-- \cc to start
+
+    vim.keymap.set("n", prefix .. "n", ":CoqNext<CR>", {desc = "Coq next"})
+    vim.keymap.set("n", prefix .. "e", ":CoqUndo<CR>", {desc = "Coq undo"})
   end
 }

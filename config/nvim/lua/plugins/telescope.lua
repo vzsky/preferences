@@ -5,9 +5,8 @@ return {
     depedencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "files find" })
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "files grep" })
-      vim.keymap.set('n', '<leader>fl', builtin.buffers, { desc = "files last" })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Files Find" })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "Files Grep" })
     end
   },
   {
@@ -16,7 +15,7 @@ return {
     config = function()
       require("telescope").load_extension("file_browser")
       local fb = require("telescope").extensions.file_browser
-      vim.keymap.set('n', '<leader>fb', fb.file_browser, { desc = "file browser" })
+      vim.keymap.set('n', '<leader>fb', fb.file_browser, { desc = "File Browser" })
     end
   },
   {

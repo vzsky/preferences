@@ -4,10 +4,11 @@ local servers = {
   -- Create ~/.clangd solves library seeking issues.
   eslint = {},
   hls = {},
-  tsserver = {},
+  ts_ls = {},
   texlab = {},
   pyright = {},
   marksman = {},
+  ocamllsp = {},
 }
 
 return {
@@ -23,28 +24,26 @@ return {
     require("neodev").setup({})
     require("mason").setup()
 
-    local mason_lspconfig = require("mason-lspconfig")
-
-    mason_lspconfig.setup({
+    require("mason-lspconfig").setup({
       ensure_installed = vim.tbl_keys(servers)
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-    mason_lspconfig.setup_handlers {
-      function(server_name)
-        require('lspconfig')[server_name].setup {
-          capabilities = capabilities,
-          settings = servers[server_name],
-        }
-      end,
-    }
+    local lspconfig = require('lspconfig')
+    for server_name, settings in pairs(servers) do
+      lspconfig[server_name].setup({
+        capabilities = capabilities,
+        settings = settings,
+      })
+    end
 
-    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-    vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
-    vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition)
-    vim.keymap.set('n', '<leader>t', vim.lsp.buf.type_definition)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc="show Error from lsp"})
+    vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, {desc="Hover"})
+    vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, {desc="goto Definition"})
+    vim.keymap.set('n', '<leader>t', vim.lsp.buf.type_definition, {desc="show Type"})
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {desc="Code Action"})
+
   end
 }

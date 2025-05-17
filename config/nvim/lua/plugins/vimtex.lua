@@ -1,5 +1,7 @@
+-- the command to trigger live compiler is "\ll"
 return {
   'lervag/vimtex',
+  tag = "v2.15",
   init = function()
     vim.g.vimtex_view_method = "zathura"
   end,
