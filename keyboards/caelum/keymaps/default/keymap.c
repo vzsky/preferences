@@ -2,7 +2,6 @@
 // #include "features/select_word.h"
 
 enum layers {
-  _QWERTY,
   _COLEMAK,
   _NAV,
   _LOWER,
@@ -10,16 +9,11 @@ enum layers {
   _ADJUST,
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK
-};
-
-
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
-#define NAV    MO(_NAV)
-#define NAV_BK LT(_NAV, KC_BSPC)
+
+#define NAV_SP LT(_NAV, KC_SPC)
+#define CMD_BK MT(MOD_LGUI, KC_BSPC)
 
 #define CLEFT  C(KC_LEFT)
 #define CRIGHT C(KC_RIGHT)
@@ -30,23 +24,24 @@ enum custom_keycodes {
 #define COPY    G(KC_C)
 #define PATSE   G(KC_V)
 
+// HOME ROW MOD
+#define MOD_T MT(MOD_LGUI, KC_T)
+#define MOD_S MT(MOD_LCTL, KC_S)
+#define MOD_N MT(MOD_LGUI, KC_N)
+#define MOD_E MT(MOD_LCTL, KC_E)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT(
-        KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,           KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_CAPS,
-        KC_ESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,           KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
-        NAV    , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,           KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
-        KC_LSFT,          KC_LCTL, KC_LGUI, LOWER  , KC_SPC ,           NAV_BK , RAISE  , KC_MPLY, KC_MNXT,          KC_ENT
-    ),
     [_COLEMAK] = LAYOUT(
         KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,           KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN, KC_CAPS,
-        KC_ESC , KC_A   , KC_R   , KC_S   , KC_T   , KC_G   ,           KC_M   , KC_N   , KC_E   , KC_I   , KC_O   , KC_QUOT,
-        NAV    , KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,           KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
-        KC_LSFT,          KC_LCTL, KC_LGUI, LOWER  , KC_SPC ,           NAV_BK , RAISE  , KC_MPLY, KC_MNXT,          KC_ENT
+        KC_ESC , KC_A   , KC_R   , MOD_S  , MOD_T  , KC_G   ,           KC_M   , MOD_N  , MOD_E  , KC_I   , KC_O   , KC_QUOT,
+        XXXXXXX, KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,           KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
+        KC_LSFT,          XXXXXXX, XXXXXXX, LOWER  , NAV_SP ,           KC_BSPC, RAISE  , XXXXXXX, XXXXXXX,          KC_ENT
     ),
     [_NAV] = LAYOUT(
-        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,           COPY,    XXXXXXX, XXXXXXX, XXXXXXX, PATSE  , XXXXXXX,
-        XXXXXXX, KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX,           KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
-        _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX,           LWORD,   KC_PGDN, KC_PGUP, RWORD ,  XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_F12 , KC_F7  , KC_F8  , KC_F9  , XXXXXXX,           LWORD,   KC_PGDN, KC_PGUP, RWORD ,  XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_F11 , KC_F4  , KC_F5  , KC_F6  , XXXXXXX,           KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
+        _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , XXXXXXX,           XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
         _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
 
     ),
@@ -64,30 +59,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, QWERTY , COLEMAK, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
     )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-  }
   return true;
+}
+
+void keyboard_post_init_user(void) {
+    if (!eeconfig_read_user()) {
+        set_single_persistent_default_layer(_COLEMAK);
+        eeconfig_update_user(1);
+    }
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
+
