@@ -65,9 +65,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 }
+
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_COLEMAK] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_NAV]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_LOWER]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_RAISE]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_ADJUST]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
+};
 
 void keyboard_post_init_user(void) {
     if (!eeconfig_read_user()) {
@@ -79,4 +88,5 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
+
 

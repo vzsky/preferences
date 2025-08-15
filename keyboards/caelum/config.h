@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #include "config_common.h"
 
+#define EE_HANDS
+
 /* USB Device descriptor parameter */
 
 /* mouse config */
@@ -55,4 +57,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 // #define UNUSED_PINS
 
+#define ENCODER_A_PINS { }
+#define ENCODER_B_PINS { }
+#define ENCODER_RESOLUTIONS { }
+#define ENCODER_A_PINS_RIGHT { F5 }
+#define ENCODER_B_PINS_RIGHT { F4 }
+#define ENCODER_RESOLUTIONS_RIGHT { 4 }
+
 #define DIODE_DIRECTION COL2ROW
+
