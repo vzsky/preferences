@@ -72,8 +72,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_COLEMAK] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_NAV]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LOWER]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_NAV]     = { ENCODER_CCW_CW(KC_WH_D, KC_WH_U) },
+    [_LOWER]   = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
     [_RAISE]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_ADJUST]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
 };
