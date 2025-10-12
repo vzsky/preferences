@@ -4,6 +4,10 @@ function cplus(){
 	./$fn
 }
 
+function icloud () {
+  cd /Users/mb99n/Library/Mobile\ Documents/com~apple~CloudDocs
+}
+
 function rust (){
   fn="`echo "$1"|cut -d. -f1`"
   rustc $fn.rs -o $fn

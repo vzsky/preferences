@@ -8,10 +8,9 @@ return {
         vim.api.nvim_set_hl(0, 'DiffAdd', { fg="#7af76c" })
         vim.api.nvim_set_hl(0, 'DiffChange', { fg="#09edd2" })
         vim.api.nvim_set_hl(0, 'DiffDelete', { fg="#ed0955" })
+        vim.api.nvim_set_hl(0, "LineNr", { fg="#989895" })
       end
     })
-
-
 
     vim.cmd.colorscheme "vim-monokai-tasty"
 

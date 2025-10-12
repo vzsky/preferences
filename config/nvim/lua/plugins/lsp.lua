@@ -1,14 +1,13 @@
 local servers = {
   lua_ls = {},
-  clangd = {},
-  -- Create ~/.clangd solves library seeking issues.
+  clangd = {}, -- add CPLUS_INCLUDE to .zshrc solves header seeking 
   eslint = {},
-  hls = {},
+  -- hls = {},
   ts_ls = {},
   texlab = {},
   pyright = {},
   marksman = {},
-  ocamllsp = {},
+  -- ocamllsp = {},
 }
 
 return {

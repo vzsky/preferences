@@ -14,3 +14,4 @@ return {
     vim.cmd("set conceallevel=2")
   end
 }
+
