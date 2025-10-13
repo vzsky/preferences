@@ -4,8 +4,8 @@
   "manufacturer": "my99n",
   "maintainer": "my99n",
   "usb": {
-    "vid": "0x444D",
-    "pid": "0x0000",
+    "vid": "0xFEED",
+    "pid": "0x6060",
     "device_version": "1.0.0"
   },
   "layouts": {
@@ -64,8 +64,9 @@
               {"x": 12, "y": 3},
               {"x": 13, "y": 3},
               {"x": 15, "y": 3}
-              
+
           ]
       }
   }
 }
+

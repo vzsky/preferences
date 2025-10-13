@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
         XXXXXXX, KC_F12 , KC_F7  , KC_F8  , KC_F9  , XXXXXXX,           LWORD,   KC_PGDN, KC_PGUP, RWORD ,  XXXXXXX, XXXXXXX,
         XXXXXXX, KC_F11 , KC_F4  , KC_F5  , KC_F6  , XXXXXXX,           KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
-        _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , XXXXXXX,           XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , XXXXXXX,           XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
         _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
 
     ),
@@ -72,7 +72,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_COLEMAK] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_NAV]     = { ENCODER_CCW_CW(KC_WH_D, KC_WH_U) },
+    [_NAV]     = { ENCODER_CCW_CW(MS_WHLD, MS_WHLU) },
     [_LOWER]   = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
     [_RAISE]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_ADJUST]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
