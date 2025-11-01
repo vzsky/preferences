@@ -15,14 +15,20 @@ enum layers {
 #define NAV_SP LT(_NAV, KC_SPC)
 #define CMD_BK MT(MOD_LGUI, KC_BSPC)
 
-#define CLEFT  C(KC_LEFT)
-#define CRIGHT C(KC_RIGHT)
+// #define CLEFT  C(KC_LEFT)
+// #define CRIGHT C(KC_RIGHT)
 
-#define LWORD A(KC_LEFT)
-#define RWORD A(KC_RIGHT)
+// #define LWORD A(KC_LEFT)
+// #define RWORD A(KC_RIGHT)
 
-#define COPY    G(KC_C)
-#define PATSE   G(KC_V)
+// #define COPY    G(KC_C)
+// #define PATSE   G(KC_V)
+
+// TMUX
+enum custom_keycodes {
+    TM_PWIN = SAFE_RANGE, // Prev Window
+    TM_NWIN,              // Next Window
+};
 
 // HOME ROW MOD
 #define MOD_T MT(MOD_LGUI, KC_T)
@@ -39,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,          XXXXXXX, XXXXXXX, LOWER  , NAV_SP ,           KC_BSPC, RAISE  , XXXXXXX, XXXXXXX,          KC_ENT
     ),
     [_NAV] = LAYOUT(
-        XXXXXXX, KC_F12 , KC_F7  , KC_F8  , KC_F9  , XXXXXXX,           LWORD,   KC_PGDN, KC_PGUP, RWORD ,  XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_F12 , KC_F7  , KC_F8  , KC_F9  , XXXXXXX,           XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,  XXXXXXX, XXXXXXX,
         XXXXXXX, KC_F11 , KC_F4  , KC_F5  , KC_F6  , XXXXXXX,           KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
         _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , XXXXXXX,           XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
+        TM_PWIN,          _______, _______, _______, _______,           _______, _______, _______, _______,          TM_NWIN
 
     ),
     [_LOWER] = LAYOUT(
@@ -55,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, KC_UNDS, KC_7   , KC_8   , KC_9   , XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, KC_4   , KC_5   , KC_6   , XXXXXXX,           XXXXXXX, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH, XXXXXXX,
         _______, KC_0   , KC_1   , KC_2   , KC_3   , XXXXXXX,           XXXXXXX, KC_CIRC, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX,
-        CLEFT  ,          _______, _______, _______, _______,           _______, _______, _______, _______,          CRIGHT
+        _______,          _______, _______, _______, _______,           _______, _______, _______, _______,          _______
     ),
     [_ADJUST] = LAYOUT(
         XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -65,14 +71,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case TM_PWIN: // Prev Window
+                tap_code16(LCTL(KC_T));
+                tap_code(KC_P);
+                return false;
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  return true;
+            case TM_NWIN: // Next Window
+                tap_code16(LCTL(KC_T));
+                tap_code(KC_N);
+                return false;
+        }
+    }
+    return true;
 }
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_COLEMAK] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_NAV]     = { ENCODER_CCW_CW(MS_WHLD, MS_WHLU) },
+    [_NAV]     = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
     [_LOWER]   = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
     [_RAISE]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_ADJUST]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }

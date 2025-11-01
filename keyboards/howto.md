@@ -1,2 +1,3 @@
 - `qmk flash -kb <keyboard> -km <keymap> -bl avrdude-split-[left/right]` for caelum
 - `qmk flash -kb <keyboard> -km <keymap>` for others (need to define MASTER_LEFT / MASTER_RIGHT manually)
+- it is planck/rev6_drop 
