@@ -30,12 +30,8 @@ return {
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-    local lspconfig = require('lspconfig')
     for server_name, settings in pairs(servers) do
-      lspconfig[server_name].setup({
-        capabilities = capabilities,
-        settings = settings,
-      })
+      vim.lsp.config(server_name, settings)
     end
 
     vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc="show Error from lsp"})

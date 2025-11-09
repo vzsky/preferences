@@ -10,9 +10,13 @@ return {
         null_ls.builtins.formatting.prettier,
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.isort,
+        -- null_ls.builtins.diagnostics.clang_tidy,
+        -- null_ls.builtins.formatting.clang_format.with({
+        --     extra_args = { "--style=file" },
+        -- })
       }
     })
 
-    vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, {desc="Format the code"})
+    vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { desc = "Format the code" })
   end
 }
