@@ -19,7 +19,7 @@ enum layers {
 #define SCR_LFT LCA(KC_LEFT)
 
 #define TMUX_LEADER LCTL(KC_B)
-#define TMUX_CMD(x) tap_code16(TMUX_LEADER); tap_code16(x); return false;
+#define TMUX_CMD(x) tap_code16(TMUX_LEADER); tap_code16(x);
 
 enum custom_keycodes {
     // TMUX
@@ -39,6 +39,9 @@ enum custom_keycodes {
     T_DTACH,              // DETACH
     T_ZOOM,               // ZOOM
     T_KILL,               // KILL
+
+    T_MARK,               // MARK
+    T_SWAP,               // SWAP then UNMARK
 
 };
 
@@ -60,23 +63,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, KC_F12 , KC_F7  , KC_F8  , KC_F9  , XXXXXXX,           XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, KC_F11 , KC_F4  , KC_F5  , KC_F6  , XXXXXXX,           KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
         XXXXXXX, KC_F10 , KC_F1  , KC_F2  , KC_F3  , XXXXXXX,           XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          _______
+        SCR_LFT,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          SCR_RGH
 
     ),
     [_LOWER] = LAYOUT(
         XXXXXXX, KC_UNDS, KC_AMPR, KC_ASTR, KC_GRV,  KC_TILD,           XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, KC_DLR,  KC_PERC, KC_CIRC, KC_BSLS,           XXXXXXX, KC_LPRN, KC_RPRN, KC_QUOT, KC_DQUO, XXXXXXX,
         XXXXXXX, XXXXXXX, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE,           XXXXXXX, KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, XXXXXXX,
-        _______,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          _______
+        SCR_LFT,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          SCR_RGH
     ),
     [_RAISE] = LAYOUT(
         XXXXXXX, KC_UNDS, KC_7   , KC_8   , KC_9   , XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, KC_4   , KC_5   , KC_6   , XXXXXXX,           XXXXXXX, KC_PLUS, KC_MINS, KC_ASTR, KC_SLSH, XXXXXXX,
         _______, KC_0   , KC_1   , KC_2   , KC_3   , XXXXXXX,           XXXXXXX, KC_CIRC, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX,
-        SCR_RGH,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          SCR_LFT
+        SCR_LFT,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          SCR_RGH
     ),
     [_TMUX] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, T_PASTE, XXXXXXX,           XXXXXXX, T_WN_LS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, T_PASTE, XXXXXXX,           XXXXXXX, T_MARK,  T_SWAP,  XXXXXXX, XXXXXXX, T_WN_LS,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, T_PN_CH,           T_PN_LF, T_PN_DN, T_PN_UP, T_PN_RG, XXXXXXX, XXXXXXX,
         XXXXXXX, T_ZOOM,  T_KILL,  T_WN_C,  T_DTACH, T_PN_CV,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         T_WN_PV,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          T_WN_NX
@@ -85,29 +88,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          _______
+        XXXXXXX,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          XXXXXXX
     )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case T_WN_PV: TMUX_CMD(KC_P);
-            case T_WN_NX: TMUX_CMD(KC_N);
-            case T_WN_LS: TMUX_CMD(KC_L);
-            case T_PN_LF: TMUX_CMD(KC_LEFT);
-            case T_PN_DN: TMUX_CMD(KC_DOWN);
-            case T_PN_UP: TMUX_CMD(KC_UP);
-            case T_PN_RG: TMUX_CMD(KC_RIGHT);
+            case T_WN_PV: TMUX_CMD(KC_P);       return false;
+            case T_WN_NX: TMUX_CMD(KC_N);       return false;
+            case T_WN_LS: TMUX_CMD(KC_L);       return false;
+            case T_PN_LF: TMUX_CMD(KC_LEFT);    return false;
+            case T_PN_DN: TMUX_CMD(KC_DOWN);    return false;
+            case T_PN_UP: TMUX_CMD(KC_UP);      return false;
+            case T_PN_RG: TMUX_CMD(KC_RIGHT);   return false;
 
-            case T_WN_C : TMUX_CMD(KC_C);
-            case T_PN_CH: TMUX_CMD(KC_PIPE);
-            case T_PN_CV: TMUX_CMD(KC_MINS);
+            case T_WN_C : TMUX_CMD(KC_C);       return false;
+            case T_PN_CH: TMUX_CMD(KC_PIPE);    return false;
+            case T_PN_CV: TMUX_CMD(KC_MINS);    return false;
 
-            case T_PASTE: TMUX_CMD(KC_RBRC);
-            case T_ZOOM : TMUX_CMD(KC_Z);
-            case T_KILL : TMUX_CMD(KC_X);
-            case T_DTACH: TMUX_CMD(KC_D);
+            case T_PASTE: TMUX_CMD(KC_RBRC);    return false;
+            case T_ZOOM : TMUX_CMD(KC_Z);       return false;
+            case T_KILL : TMUX_CMD(KC_X);       return false;
+            case T_DTACH: TMUX_CMD(KC_D);       return false;
+
+            case T_MARK : TMUX_CMD(KC_M);       return false;
+            case T_SWAP : TMUX_CMD(KC_U);
+                          TMUX_CMD(KC_M);
+                          TMUX_CMD(KC_M);       return false;
         }
     }
     return true;
