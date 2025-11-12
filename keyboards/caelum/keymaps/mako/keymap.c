@@ -19,7 +19,7 @@ enum layers {
 #define SCR_LFT LCA(KC_LEFT)
 
 #define TMUX_LEADER LCTL(KC_B)
-#define TMUX_CMD(x) tap_code16(TMUX_LEADER); tap_code16(x);
+#define TMUX_CMD(x) tap_code16(TMUX_LEADER); tap_code16(x); tap_code16(KC_ESC);
 
 enum custom_keycodes {
     // TMUX

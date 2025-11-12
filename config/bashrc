@@ -41,8 +41,8 @@ __color() {
 
 __trimmed_pwd() {
   local dir="${PWD/#$HOME/~}"
-  icon_flask="$(printf "\xF3\xB0\x82\x93")"
-  icon_beach="$(printf "\xEF\x94\xA2")"
+  local icon_flask="$(printf "\xF3\xB0\x82\x93")"
+  local icon_beach="$(printf "\xEF\x94\xA2")"
 
   if [[ $dir =~ ^/tmp/data/([^/]+)/data(/.*)?$ ]]; then 
     local base="${BASH_REMATCH[1]}"
@@ -64,14 +64,20 @@ __trimmed_pwd() {
 }
 
 __git_prompt() {
+    local icon_fish="$(printf "\xEE\xB9\x81")"
+    local icon_water="$(printf "\xF3\xB0\x96\x8C")"
+    local icon_git="$(printf "\xF3\xB0\x8A\xA2")"
+
     if ! git rev-parse --is-inside-work-tree &>/dev/null; then
         return
     fi
 
     local branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+    if [[ "$branch" == *.*.*.* ]]; then
+        branch=.$(echo "$branch" | cut -d'.' -f3)
+    fi
+    branch=$icon_git$branch
 
-    local fish_icon="$(printf "\xEE\xB9\x81")"
-    local water_icon="$(printf "\xF3\xB0\x96\x8C")"
 
     local unpushed_commit=0
     if git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null; then
@@ -85,16 +91,27 @@ __git_prompt() {
     local commit_flag=""
     if (( unpushed_commit > 0 )); then
         if (( unpushed_commit > 1 )); then
-            commit_flag+=" $(__color grn $unpushed_commit$fish_icon)"
+            commit_flag=" $(__color grn $unpushed_commit$icon_fish)"
         else
-            commit_flag+=" $(__color grn $fish_icon)"
+            commit_flag=" $(__color grn $icon_fish)"
         fi
     fi
     if [[ $dirty -ne 0 ]]; then
-        dirty_flag+="$(__color blu $water_icon) "
+        dirty_flag="$(__color blu $icon_water) "
     fi
 
     echo "(${dirty_flag}${branch}${commit_flag}) "
+}
+
+__env_prompt () {
+    local icon_fishtank
+    icon_fishtank="$(printf '\xF3\xB0\xBB\xB3')"
+
+    if [[ -z "$VAR" ]]; then
+        return
+    fi
+
+    echo "$(__color grn "[$VAR $icon_fishtank]") "
 }
 
 __prompt_command() {
@@ -110,6 +127,7 @@ __prompt_command() {
     local prompt_user="$(__color pur "\u ")"
     local prompt_pwd="$(__color ylw "$(__trimmed_pwd) ")"
     local prompt_git="$(__git_prompt)"
+    local prompt_env="$(__env_prompt)"
 
-    PS1="${arrow}${prompt_pwd}${prompt_user}${prompt_git}"
+    PS1="${arrow}${prompt_pwd}${prompt_user}${prompt_env}${prompt_git}"
 }
