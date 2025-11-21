@@ -1,13 +1,20 @@
+########################
 # READLOG + GREPLOG
+########################
 
+########################
 # HISTORY
+########################
+
 export HISTFILESIZE=10000
 export HISTSIZE=500
 export HISTTIMEFORMAT="%F %T"
 export HISTCONTROL=erasedups:ignoredups:ignorespace
 shopt -s histappend
 
+########################
 # COLOR
+########################
 export TERM=xterm-256color
 # 0  - No style         1  - Bold             2  - Dim                  3  - Italic       4  - Underline        
 # 5  - Slow blink       6  - Rapid blink      7  - Reverse (fg-bg)      8  - Hidden       9  - Strikethrough
@@ -20,7 +27,9 @@ __hex_to_ansi() {
   printf '\e[%s;38;2;%d;%d;%dm' "$style" "$r" "$g" "$b"
 }
 
+########################
 # PROMPT
+########################
 PROMPT_COMMAND=__prompt_command 
 
 __color() {
@@ -66,7 +75,8 @@ __trimmed_pwd() {
 __git_prompt() {
     local icon_fish="$(printf "\xEE\xB9\x81")"
     local icon_water="$(printf "\xF3\xB0\x96\x8C")"
-    local icon_git="$(printf "\xF3\xB0\x8A\xA2")"
+    local icon_ticket="$(printf "\xF3\xB0\x94\x98")"
+
 
     if ! git rev-parse --is-inside-work-tree &>/dev/null; then
         return
@@ -74,20 +84,18 @@ __git_prompt() {
 
     local branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
     if [[ "$branch" == *.*.*.* ]]; then
-        branch=.$(echo "$branch" | cut -d'.' -f3)
-    fi
-    branch=$icon_git$branch
-
-
-    local unpushed_commit=0
-    if git rev-parse --abbrev-ref --symbolic-full-name @{u} &>/dev/null; then
-        unpushed_commit=$(git rev-list --count @{u}..HEAD 2>/dev/null)
+        branch=$icon_ticket$(echo "$branch" | cut -d'.' -f3)
     fi
 
-    local dirty=0
-    [[ -n $(git status --porcelain 2>/dev/null) ]] && dirty=1
+    local cherry
+    cherry=$(git cherry -v 2>/dev/null)
 
-    local dirty_flag=""
+    local unpushed_commit
+    unpushed_commit=$(grep -c '^+' <<< "$cherry")
+
+    local missing_commit
+    missing_commit=$(grep -c '^-' <<< "$cherry")
+
     local commit_flag=""
     if (( unpushed_commit > 0 )); then
         if (( unpushed_commit > 1 )); then
@@ -96,11 +104,13 @@ __git_prompt() {
             commit_flag=" $(__color grn $icon_fish)"
         fi
     fi
-    if [[ $dirty -ne 0 ]]; then
-        dirty_flag="$(__color blu $icon_water) "
+    
+    local missing_flag=""
+    if (( missing_commit > 0 )); then
+        missing_flag="$(__color blu $icon_water) "
     fi
 
-    echo "(${dirty_flag}${branch}${commit_flag}) "
+    echo "(${missing_flag}${branch}${commit_flag}) "
 }
 
 __env_prompt () {
@@ -131,3 +141,4 @@ __prompt_command() {
 
     PS1="${arrow}${prompt_pwd}${prompt_user}${prompt_env}${prompt_git}"
 }
+

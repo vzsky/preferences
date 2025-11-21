@@ -39,9 +39,13 @@ enum custom_keycodes {
     T_DTACH,              // DETACH
     T_ZOOM,               // ZOOM
     T_KILL,               // KILL
+    T_RNAME,              // Rename Window
 
     T_MARK,               // MARK
-    T_SWAP,               // SWAP then UNMARK
+    T_SWAP,               // SWAP
+    T_YANK,               // Run tmux-yank
+    T_CMD,                // (COMMAND) Colon mode
+
 
 };
 
@@ -79,8 +83,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SCR_LFT,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          SCR_RGH
     ),
     [_TMUX] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, T_PASTE, XXXXXXX,           XXXXXXX, T_MARK,  T_SWAP,  XXXXXXX, XXXXXXX, T_WN_LS,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, T_PN_CH,           T_PN_LF, T_PN_DN, T_PN_UP, T_PN_RG, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, T_PASTE, XXXXXXX,           XXXXXXX, T_MARK,  T_SWAP,  T_YANK,  T_CMD,   T_WN_LS,
+        XXXXXXX, XXXXXXX, T_RNAME, XXXXXXX, XXXXXXX, T_PN_CH,           T_PN_LF, T_PN_DN, T_PN_UP, T_PN_RG, XXXXXXX, XXXXXXX,
         XXXXXXX, T_ZOOM,  T_KILL,  T_WN_C,  T_DTACH, T_PN_CV,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         T_WN_PV,          XXXXXXX, XXXXXXX, _______, _______,           _______, _______, XXXXXXX, XXXXXXX,          T_WN_NX
     ),
@@ -111,11 +115,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case T_ZOOM : TMUX_CMD(KC_Z);       return false;
             case T_KILL : TMUX_CMD(KC_X);       return false;
             case T_DTACH: TMUX_CMD(KC_D);       return false;
+            case T_RNAME: TMUX_CMD(KC_COMM);    return false;
 
             case T_MARK : TMUX_CMD(KC_M);       return false;
-            case T_SWAP : TMUX_CMD(KC_U);
-                          TMUX_CMD(KC_M);
-                          TMUX_CMD(KC_M);       return false;
+            case T_SWAP : TMUX_CMD(KC_U);       return false;
+            case T_YANK : TMUX_CMD(KC_Y);       return false;
+            case T_CMD  : TMUX_CMD(KC_COLN);    return false;
         }
     }
     return true;

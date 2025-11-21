@@ -19,7 +19,3 @@ function haskell(){
   ghc -o $fn $fn.hs
   ./$fn
 }
-
-function word(){
-	echo Word count: $(wc -w $1).
-}
