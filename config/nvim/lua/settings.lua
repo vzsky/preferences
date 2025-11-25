@@ -30,8 +30,11 @@ vim.keymap.set("n", "<c-j>", "<C-w>j")
 vim.keymap.set("n", "<c-k>", "<C-w>k")
 vim.keymap.set("n", "<c-l>", "<C-w>l")
 
-
 -- remove Ctrl + O
 vim.keymap.set('n', '<c-o>', "<CR>", { silent = true })
+
+vim.keymap.set("n", "n", "nzz", { noremap = true })
+vim.keymap.set("n", "N", "Nzz", { noremap = true })
+vim.keymap.set("n", "*", "*zz", { noremap = true })
 
 --------------------------------------
