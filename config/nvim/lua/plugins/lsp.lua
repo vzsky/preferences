@@ -34,26 +34,10 @@ return {
       vim.lsp.config(server_name, settings)
     end
 
-    local telescope_list = function(options)
-      require("telescope.builtin").loclist({
-        results = options.items,
-        prompt_title = "LSP Definitions",
-      })
-    end
-
     vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc="show code Error"})
     vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, {desc="Hover"})
-    vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, {desc="goto Definition"})
     vim.keymap.set('n', '<leader>t', vim.lsp.buf.type_definition, {desc="show Type"})
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {desc="Code Action"})
-
-    vim.keymap.set("n", "<leader>gr", function()
-      vim.lsp.buf.references() -- context, {on_list = telescope_list}
-    end, { desc = "Goto References" })
-
-    vim.keymap.set('n', '<leader>gi', function ()
-      vim.lsp.buf.implementation() -- {on_list = telescope_list}
-    end, {desc="Goto Implementation"})
 
   end
 }

@@ -38,17 +38,17 @@ return {
           set_jumps = true, -- whether to set jumps in the jumplist
           goto_next_start = {
             ["<leader>na"] = "@parameter.",
-            ["<leader>nf"] = "@function.inner",
+            ["<leader>nf"] = "@function.inner", -- next function
             ["<leader>nl"] = "@loop.inner",
             ["<leader>ni"] = "@conditional.inner",
             ["<leader>nc"] = "@class.outer",
           },
           goto_previous_start = {
             ["<leader>Na"] = "@parameter.outd",
-            ["<leader>Nf"] = "@function.inner",
-            ["<leader>Nl"] = "@loop.inner",
-            ["<leader>Ni"] = "@conditional.inner",
-            ["<leader>Nc"] = "@class.inner",
+            ["<leader>wf"] = "@function.inner", -- which function
+            ["<leader>wl"] = "@loop.inner",
+            ["<leader>wi"] = "@conditional.inner",
+            ["<leader>wc"] = "@class.inner",
           }
         },
       }

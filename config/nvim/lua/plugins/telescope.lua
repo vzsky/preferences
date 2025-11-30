@@ -8,6 +8,11 @@ return {
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Files Find" })
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "Files Grep" })
       vim.keymap.set('n', '<leader>ft', builtin.buffers, { desc = "Buffers" })
+
+      vim.keymap.set('n', '<leader>d', "<cmd>Telescope lsp_definition<CR>", {desc="goto Definition"})
+      vim.keymap.set('n', '<leader>gr', "<cmd>Telescope lsp_references<CR>", {desc="Goto References"})
+      vim.keymap.set('n', '<leader>gi', "<cmd>Telescope lsp_implementations<CR>", {desc="Goto Implementations"})
+
     end
   },
   {
