@@ -2,7 +2,7 @@ return {
   "lukas-reineke/indent-blankline.nvim",
   lazy = false,
   opts = {
-    indent = { char = '┊' },
+    indent = { char = '┊', highlight = "Nontext"},
     scope = {
       enabled = false,
     },

@@ -16,5 +16,10 @@ return {
 
     vim.g.vim_monokai_tasty_italic = 1
     vim.g.vim_monokai_tasty_highlight_active_window = 1
+
+    vim.api.nvim_set_hl(0, "@comment.typescript", { link = "Comment" })
+    vim.api.nvim_set_hl(0, "@keyword.typescript", { link = "Identifier" })
+    vim.api.nvim_set_hl(0, "@keyword.function.typescript", { link = "Identifier" })
+
   end
 }

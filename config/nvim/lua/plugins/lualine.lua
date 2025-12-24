@@ -1,7 +1,7 @@
 return {
   'nvim-lualine/lualine.nvim',
   dependencies={
-    "rsreimer/codeowners.nvim",
+    "vzsky/gitlab-codeowners.nvim",
   },
   opts = {
     options = {
@@ -14,10 +14,11 @@ return {
       lualine_b = {{'filename', path = 1}},
       lualine_c = {'branch', 'diff', 'diagnostics'},
       lualine_x = {
-        'filetype',
-        function()
-          return require("codeowners").get_buf_owner();
+        function ()
+          local co = require("gitlab-codeowners").short_codeowners() -- or codeowners()
+          if not co then return "" else return co end
         end,
+        'filetype',
       },
       lualine_y = {'progress'},
       lualine_z = {'location'}

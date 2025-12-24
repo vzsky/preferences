@@ -11,16 +11,11 @@ return {
 			ensure_installed = { "lua", "python", "cpp", "latex", "typescript" },
 			highlight = {
 				enable = true,
-				-- disable = { "latex" },
-				-- additional_vim_regex_highlighting = { "latex" },
+				additional_vim_regex_highlighting = false
 			},
 			indent = {
 				enable = true,
 			},
-		})
-
-		---@diagnostic disable-next-line: missing-fields
-		require("nvim-treesitter.configs").setup({
 			textobjects = {
 				select = {
 					enable = true,
