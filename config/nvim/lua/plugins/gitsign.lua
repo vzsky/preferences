@@ -15,6 +15,10 @@ return {
 					gitsigns.reset_hunk()
 				end)
 
+				map("n", "<leader>ks", function()
+					gitsigns.stage_hunk()
+				end)
+
 				map("n", "<leader>kb", function()
 					gitsigns.blame_line({ full = true })
 				end)

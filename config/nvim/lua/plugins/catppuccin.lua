@@ -51,7 +51,8 @@ return {
             DiffAdd = { fg = colors.green },
             DiffChange = { fg = colors.yellow },
             DiffDelete = { fg = colors.red },
-            LineNr = { fg = colors.rosewater }
+            LineNr = { fg = colors.rosewater },
+            Substitute = { bg = colors.green, fg = colors.red }
           }
         end,
       },

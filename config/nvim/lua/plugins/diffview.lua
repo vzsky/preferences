@@ -4,14 +4,14 @@ return {
     local actions = require("diffview.actions")
 
     vim.keymap.set("n", "<leader>df", function ()
-      local lib = require("diffview.lib")
-      local view = lib.get_current_view()
-      if view then
-        vim.cmd.DiffviewClose()
-      else
-        vim.cmd.DiffviewOpen()
-      end
+      vim.cmd.DiffviewOpen()
     end, { desc = "Open Diffview", })
+
+    vim.keymap.set("n", "<leader>dc", function()
+      local n = vim.fn.input("HEAD~")
+      if n == "" then n = "1" end
+      vim.cmd("DiffviewOpen HEAD~" .. n)
+    end, { desc = "Open Diffview HEAD~n" })
 
     require("diffview").setup({
       keymaps = {
@@ -23,7 +23,8 @@ return {
           { "n", "<leader>f", actions.focus_files, { desc = "Bring focus to the file panel" } },
           { "n", "<leader>g", actions.toggle_files, { desc = "Toggle the file panel." } },
           { "n", "<leader>df", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
-          { "n", "gf", function ()
+          { "n", "<leader>dc", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
+          { "n", "<leader>gf", function ()
             actions.goto_file_edit()
             vim.cmd 'tabclose #'
           end, { desc = "Open the file in the previous tabpage" } },
@@ -45,7 +46,8 @@ return {
           { "n", "<tab>", actions.select_next_entry, { desc = "Open the diff for the next file" }, },
           { "n", "<s-tab>", actions.select_prev_entry, { desc = "Open the diff for the previous file" }, },
           { "n", "<leader>df", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
-          { "n", "gf", function ()
+          { "n", "<leader>dc", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
+          { "n", "<leader>gf", function ()
             actions.goto_file_edit()
             vim.cmd 'tabclose #'
           end, { desc = "Open the file in the previous tabpage" } },

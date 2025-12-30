@@ -11,6 +11,7 @@ return {
 
 			vim.keymap.set("n", "<leader>d", "<cmd>Telescope lsp_definitions<CR>", { desc = "goto Definition" })
 			vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>", { desc = "Goto References" })
+			vim.keymap.set("n", "<leader>E", "<cmd>Telescope diagnostics<CR>", { desc = "show diagnostics (Errors)" })
 			vim.keymap.set(
 				"n",
 				"<leader>gi",
