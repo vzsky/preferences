@@ -13,7 +13,7 @@ vim.opt.expandtab = true
 vim.opt.cursorline = true
 vim.cmd.highlight("CursorLine", "guibg=#655855")
 
-vim.cmd('autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o')
+-- vim.cmd('autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o')
 
 vim.wo.wrap = false
 
@@ -38,3 +38,10 @@ vim.keymap.set("n", "N", "Nzz", { noremap = true })
 vim.keymap.set("n", "*", "*zz", { noremap = true })
 
 --------------------------------------
+
+vim.filetype.add({
+  extension = {
+    tpp = "cpp",
+  },
+})
+
