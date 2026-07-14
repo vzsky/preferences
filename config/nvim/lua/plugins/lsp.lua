@@ -4,7 +4,17 @@ local servers = {
   eslint = {},
   -- hls = {},
   ts_ls = {},
-  texlab = {},
+  texlab = {
+    root_dir = function(filename)
+      return vim.fs.root(filename, { '.latexmkrc', '.texlabroot' })
+          or vim.fs.root(filename, { '.git' })
+    end,
+    settings = {
+      texlab = {
+        auxDirectory = "out",
+      },
+    },
+  },
   pyright = {},
   marksman = {},
   -- ocamllsp = {},
