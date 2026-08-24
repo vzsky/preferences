@@ -16,3 +16,5 @@
 #undef PRODUCT_ID
 #define PRODUCT_ID 0x0267
 // magic keyboard id
+
+#define PERMISSIVE_HOLD
