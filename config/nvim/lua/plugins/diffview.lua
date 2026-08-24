@@ -21,7 +21,6 @@ return {
           { "n", "<tab>", actions.select_next_entry, { desc = "Open the diff for the next file" } },
           { "n", "<s-tab>", actions.select_prev_entry, { desc = "Open the diff for the previous file" }, },
           { "n", "<leader>f", actions.focus_files, { desc = "Bring focus to the file panel" } },
-          { "n", "<leader>g", actions.toggle_files, { desc = "Toggle the file panel." } },
           { "n", "<leader>df", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
           { "n", "<leader>dc", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
           { "n", "<leader>gf", function ()
@@ -32,7 +31,6 @@ return {
 
         file_panel = {
           { "n", "h?", actions.help("file_panel"), { desc = "Open the help panel" } },
-          { "n", "<leader>g", actions.toggle_files, { desc = "Toggle the file panel" }, },
           { "n", "j", actions.next_entry, { desc = "Bring the cursor to the next file entry" }, },
           { "n", "k", actions.prev_entry, { desc = "Bring the cursor to the previous file entry" }, },
           { "n", "<down>", actions.next_entry, { desc = "Bring the cursor to the next file entry" }, },
