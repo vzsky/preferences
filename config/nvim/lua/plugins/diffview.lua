@@ -13,6 +13,15 @@ return {
       vim.cmd("DiffviewOpen HEAD~" .. n)
     end, { desc = "Open Diffview HEAD~n" })
 
+    vim.keymap.set("n", "<leader>du", function()
+      local base = vim.fn.system("git merge-base @{upstream} HEAD"):gsub("%s+$", "")
+      if vim.v.shell_error ~= 0 or base == "" then
+        vim.notify("Diffview: could not resolve upstream merge-base", vim.log.levels.ERROR)
+        return
+      end
+      vim.cmd("DiffviewOpen " .. base)
+    end, { desc = "Open Diffview against upstream (working tree)" })
+
     require("diffview").setup({
       keymaps = {
         disable_defaults = true,
@@ -23,6 +32,7 @@ return {
           { "n", "<leader>f", actions.focus_files, { desc = "Bring focus to the file panel" } },
           { "n", "<leader>df", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
           { "n", "<leader>dc", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
+          { "n", "<leader>du", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
           { "n", "<leader>gf", function ()
             actions.goto_file_edit()
             vim.cmd 'tabclose #'
@@ -45,6 +55,7 @@ return {
           { "n", "<s-tab>", actions.select_prev_entry, { desc = "Open the diff for the previous file" }, },
           { "n", "<leader>df", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
           { "n", "<leader>dc", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
+          { "n", "<leader>du", vim.cmd.DiffviewClose, { desc = "Close Diffview" } },
           { "n", "<leader>gf", function ()
             actions.goto_file_edit()
             vim.cmd 'tabclose #'
